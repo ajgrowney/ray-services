@@ -1,0 +1,97 @@
+openapi: 3.0.0
+info:
+  title: Ray Gmail Service API
+  description: API built to interact with Gmail
+  version: 0.0.1
+tags:
+  - name: current
+    description: Implemeneted
+  - name: future
+    description: To be implemented
+servers:
+  - url: http://192.168.0.12:8000
+    description: Server when running on dell inspiron
+  - url: http://192.168.0.38:8000
+    description: Server when running on macbook 
+
+paths:
+  /mail/messages:
+    get:
+      tags: 
+      - current
+      description: Get mail
+      parameters:
+      - in: query
+        name: limit
+        description: Maximum number of messages to return
+        schema:
+          type: integer
+        example: 3
+      - in: query
+        name: newer_than
+        description: "Check for messages newer than (ex: 1d)"
+        schema:
+          type: string
+        example: "5d"
+      summary: Check the mail
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StandardResponse'
+              example:
+                statusCode: 200
+                type: Message
+                results:
+                - message_id: 1
+                  date: Thu, 02 Jul 2020 06:40:01 -0400
+                  subject: Message Subject
+                
+  /mail/messages/<message_id>:
+    get:
+      tags: 
+      - current
+      summary: Get email
+      description: Get content of an email
+      parameters: 
+      - in: query
+        name: mark
+        description: Mark as read
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmailMetadata'
+components:
+  schemas:
+    StandardResponse:
+      type: object
+      properties:
+        statusCode:
+          type: integer
+        results:
+          type: array
+          items:
+            type: object
+        type:
+          type: string
+      required: 
+        - statusCode
+          results
+          type
+    EmailMetadata:
+      type: object
+      properties:
+        subject:
+          type: string
+        message_id:
+          type: integer
+        date:
+          type: string
+          format: datetime
