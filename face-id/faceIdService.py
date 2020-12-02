@@ -9,20 +9,28 @@ from constants import face_detector as faceCascade, model, model_ids
 from flask import Flask, request
 
 app = Flask(__name__)
+flask_port = 5020 if len(sys.argv) < 2 else int(sys.argv[1])
+init_pause = True if (len(sys.argv) >= 3 and sys.argv[2].lower() == "true") else False
+integrated = True if (len(sys.argv) >= 4 and sys.argv[3].lower() == "true") else False
+show_video = True if (len(sys.argv) >= 5 and sys.argv[4].lower() == "true") else False
 
 class FaceTracker:
-    def __init__(self):
+    def __init__(self, run_integrated:bool):
         self.faces = {}
+        self.integrated = run_integrated
 
     def register_instance(self, user, location):
+        if(user not in self.faces.keys() and self.integrated):
+            print(f"POST to Control Center: {user} detected")
         self.faces[user] = { "location": str(location), "time": datetime.datetime.now() }
-    
+        return
+
     def get_current(self):
         return self.faces
 
 
 class Recognizer:
-    def __init__(self, min_conf:int, paused = False):
+    def __init__(self, min_conf:int, paused = False, run_integrated = False, show_video = True):
         self.cam_id = 0
         self.capture_width, self.capture_height = 640, 480
         self.paused, self.exit = paused, False
@@ -30,7 +38,8 @@ class Recognizer:
         self.face_detector = faceCascade
         self.face_id_model = model
         self.face_id_map = model_ids
-        self.tracker = FaceTracker()
+        self.tracker = FaceTracker(run_integrated)
+        self.show_video = show_video
 
 
     def run(self):
@@ -55,11 +64,12 @@ class Recognizer:
                         img = cv2.putText(img, user + f" ({conf}%)",(x,y-10),cv2.FONT_HERSHEY_SIMPLEX,1,(0,255,0))
                         cv2.rectangle(img,(x,y),(x+w,y+h),(255,0,0),2)
                         self.tracker.register_instance(user,(x,y,x+w,y+h))
-
-                cv2.imshow('video',img)
-                k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
-                if k == 27:
-                    break
+    
+                if self.show_video:
+                    cv2.imshow('Face ID Stream',img)
+                    k = cv2.waitKey(10) & 0xff # Press 'ESC' for exiting video
+                    if k == 27:
+                        break
             
         self.cap.release()
         cv2.destroyAllWindows()
@@ -70,8 +80,7 @@ class Recognizer:
     def shutdown(self):
         return
 
-init_pause = True if (len(sys.argv) >= 2 and sys.argv[1].lower() == "true") else False
-r = Recognizer(45, init_pause)
+r = Recognizer(45, init_pause, integrated, show_video)
 
 @app.route("/faces",methods=["GET"])
 def get_current_faces():
@@ -103,7 +112,7 @@ def health_check():
 
 
 if __name__ == "__main__":
-    t = Thread(target=app.run, kwargs={"host": "0.0.0.0", "port": "5020"})
+    t = Thread(target=app.run, kwargs={"host": "0.0.0.0", "port": flask_port})
     t.daemon = True
     t.start()
     r.run()
