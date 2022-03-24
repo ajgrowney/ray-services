@@ -1,0 +1,7 @@
+wikipedia
+face
+todo
+database
+microphone
+clothing
+speaker

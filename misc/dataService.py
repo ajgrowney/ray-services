@@ -2,7 +2,7 @@ import sys
 import time
 import json
 from flask import Flask, request
-from serviceBase import ServiceRequest, ServiceResponse
+from coreSchemas import ServiceRequest, ServiceResponse
 
 class DatabaseService:
     def __init__(self, port:int):

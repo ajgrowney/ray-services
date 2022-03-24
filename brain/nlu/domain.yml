@@ -1,0 +1,39 @@
+version: '2.0'
+session_config:
+  session_expiration_time: 60
+  carry_over_slots_to_new_session: true
+intents:
+# Categories of things users say
+- start_controller
+- greet
+- affirm
+- deny
+- goodbye
+- inform
+- bot_challenge
+- bot_awake
+- bot_about
+responses:
+# Things the assistant can say to users
+  utter_greet:
+  - text: Hey! How are you?
+  utter_did_not_understand:
+  - text: Sorry, I didn't get that, can you rephrase?
+  utter_cheer_up:
+  - text: You are doing great
+  utter_did_that_help:
+  - text: Did that help you?
+  utter_happy:
+  - text: Great, carry on!
+  utter_goodbye:
+  - text: Bye
+  utter_iamhere:
+  - text: Yes, sir
+  utter_iamabot:
+  - text: I am a Thalia.
+  utter_whatido:
+  - text: I am like Jarvis if Jarvis was built by Andrew. Much less intelligent.
+entities:
+- controller_id
+actions:
+- utter_cheer_up

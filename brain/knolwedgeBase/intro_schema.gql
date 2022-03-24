@@ -1,0 +1,19 @@
+# Schema Key: intro
+define
+
+# entities
+user sub entity,
+    has first-name,
+    has last-name,
+    key email;
+
+# relationships
+
+# attributes
+
+email sub attribute,
+  value string;
+first-name sub attribute,
+  value string;
+last-name sub attribute,
+  value string;

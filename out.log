@@ -1,0 +1,34 @@
+2022-03-24 10:42:57,564 [INFO ]  Starting Rasa server on http://localhost:5013
+2022-03-24 10:42:57,577 [INFO ]  Loading model nlu/models/20211223-124046.tar.gz...
+2022-03-24 10:42:58,022 [INFO ]  Loading model nlu/models/20211223-124046.tar.gz...
+2022-03-24 10:43:11,484 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-en_core_web_md'.
+2022-03-24 10:43:18,416 [INFO ]  Rasa server is up and running.
+2022-03-24 10:45:33,551 [INFO ]  Starting Rasa server on http://localhost:5005
+2022-03-24 10:45:33,570 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 10:45:34,001 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 10:45:45,921 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-en_core_web_md'.
+2022-03-24 10:45:52,732 [INFO ]  Rasa server is up and running.
+2022-03-24 11:00:10,067 [INFO ]  Starting Rasa server on http://localhost:5005
+2022-03-24 11:00:10,086 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 11:00:10,553 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 11:00:24,542 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-en_core_web_md'.
+2022-03-24 11:00:32,689 [INFO ]  Rasa server is up and running.
+2022-03-24 11:01:13,256 [ERROR]  Exception occurred while handling uri: 'http://localhost:5005/webhooks/rest/webhook'
+Traceback (most recent call last):
+  File "/Users/andrewgrowney/.pyenv/versions/3.7.10/lib/python3.7/site-packages/sanic/app.py", line 931, in handle_request
+    response = await response
+  File "/Users/andrewgrowney/.pyenv/versions/3.7.10/lib/python3.7/site-packages/rasa/core/channels/rest.py", line 101, in receive
+    sender_id = await self._extract_sender(request)
+  File "/Users/andrewgrowney/.pyenv/versions/3.7.10/lib/python3.7/site-packages/rasa/core/channels/rest.py", line 52, in _extract_sender
+    return req.json.get("sender", None)
+AttributeError: 'NoneType' object has no attribute 'get'
+2022-03-24 11:11:38,855 [INFO ]  Starting Rasa server on http://localhost:5005
+2022-03-24 11:11:38,863 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 11:11:39,294 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 11:11:52,066 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-en_core_web_md'.
+2022-03-24 11:11:59,065 [INFO ]  Rasa server is up and running.
+2022-03-24 11:15:03,894 [INFO ]  Starting Rasa server on http://localhost:5005
+2022-03-24 11:15:03,901 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 11:15:04,321 [INFO ]  Loading model ../ray-services/brain/nlu/models/20211223-124046.tar.gz...
+2022-03-24 11:15:17,301 [INFO ]  Added 'SpacyNLP' to component cache. Key 'SpacyNLP-en_core_web_md'.
+2022-03-24 11:15:24,654 [INFO ]  Rasa server is up and running.
