@@ -7,12 +7,17 @@ Public services that are built to add capabilities to the larger ecosystem
 3) Forwards messages to core.client-mgr
       4) Sends to respective services
 4) Returns (AssistantResponse, ServiceMessages resolved)
+
 ## Local Testing
 ### Todo Service
+#### Dependencies
+- MySQL DB
+      - 
 - Unit Testing
 
       Key: Generated UUID
       Value: {"content":{"type":"system.status","parameters":{}},"context":{"source":"console"}}
+
 - Integration Testing (Database)
 
       Key: Generated UUID
